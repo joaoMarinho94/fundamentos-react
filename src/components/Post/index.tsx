@@ -13,14 +13,7 @@ interface IProps {
     name: string;
     role: string;
   };
-  content: [
-    { type: string; content: string },
-    {
-      type: string;
-      content: string;
-    },
-    { type: string; content: string }
-  ];
+  content: { type: string; content: string }[];
   publishedAt: Date;
 }
 
@@ -74,10 +67,10 @@ export function Post({ author, publishedAt, content }: IProps) {
       <div className={styles.content}>
         {content.map((line) => {
           if (line.type === "paragraph") {
-            return <p>{line.content}</p>;
+            return <p key={line.content}>{line.content}</p>;
           } else if (line.type === "link") {
             return (
-              <p>
+              <p key={line.content}>
                 <a href="#">{line.content}</a>
               </p>
             );
@@ -102,7 +95,7 @@ export function Post({ author, publishedAt, content }: IProps) {
 
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment content={comment} />
+          <Comment key={comment} content={comment} />
         ))}
       </div>
     </article>
