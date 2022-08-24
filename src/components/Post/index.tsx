@@ -1,6 +1,12 @@
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { useState, FormEvent, ChangeEvent } from "react";
+import {
+  useState,
+  FormEvent,
+  ChangeEvent,
+  FormEventHandler,
+  DOMAttributes,
+} from "react";
 
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comments";
@@ -37,14 +43,17 @@ export function Post({ author, publishedAt, content }: IProps) {
   function handleCrateNewComment(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if(!newCommentText) return
-
     setComments([...comments, newCommentText]);
     setNewCommentText("");
   }
 
   function handleNewCommentChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    e.target.setCustomValidity("");
     setNewCommentText(e.target.value);
+  }
+
+  function handleNewCommentInvalid(e: any) {
+    e.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
   function deleteComment(commentToDelete: string) {
@@ -54,6 +63,8 @@ export function Post({ author, publishedAt, content }: IProps) {
 
     setComments(commentsWithoutDeletedOne);
   }
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -96,10 +107,13 @@ export function Post({ author, publishedAt, content }: IProps) {
           placeholder="Deixe um comentário"
           value={newCommentText}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
