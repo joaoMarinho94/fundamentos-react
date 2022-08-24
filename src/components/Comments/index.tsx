@@ -7,7 +7,7 @@ import { Avatar } from "../Avatar";
 
 interface IProps {
   content: string;
-  onDeleteComment: (commentToDelete: string) => void;
+  onDeleteComment: (comment: string) => void;
 }
 
 export function Comment({ content, onDeleteComment }: IProps) {

@@ -6,6 +6,7 @@ import {
   ChangeEvent,
   FormEventHandler,
   DOMAttributes,
+  InvalidEvent,
 } from "react";
 
 import { Avatar } from "../Avatar";
@@ -52,7 +53,7 @@ export function Post({ author, publishedAt, content }: IProps) {
     setNewCommentText(e.target.value);
   }
 
-  function handleNewCommentInvalid(e: any) {
+  function handleNewCommentInvalid(e: InvalidEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
