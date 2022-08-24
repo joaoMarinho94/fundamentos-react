@@ -23,7 +23,7 @@ export function Comment({ content, onDeleteComment }: IProps) {
 
   return (
     <div className={styles.comment}>
-      <Avatar hasBorder={false} src="https://github.com/diego3g.png" alt="" />
+      <Avatar hasBorder={false} src="https://avatars.githubusercontent.com/u/51498475?v=4" alt="" />
 
       <div className={styles.commentBox}>
         <div className={styles.commentContent}>
