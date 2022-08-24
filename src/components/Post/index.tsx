@@ -18,7 +18,7 @@ interface IProps {
 }
 
 export function Post({ author, publishedAt, content }: IProps) {
-  const [comments, setComments] = useState([1, 2, "Post muito bacana, hein?!"]);
+  const [comments, setComments] = useState(["Post muito bacana, hein?!"]);
   const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateFormatted = format(
@@ -37,12 +37,22 @@ export function Post({ author, publishedAt, content }: IProps) {
   function handleCrateNewComment(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if(!newCommentText) return
+
     setComments([...comments, newCommentText]);
     setNewCommentText("");
   }
 
   function handleNewCommentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setNewCommentText(e.target.value);
+  }
+
+  function deleteComment(commentToDelete: string) {
+    const commentsWithoutDeletedOne = comments.filter((comment) => {
+      return comment !== commentToDelete;
+    });
+
+    setComments(commentsWithoutDeletedOne);
   }
 
   return (
@@ -95,7 +105,11 @@ export function Post({ author, publishedAt, content }: IProps) {
 
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment key={comment} content={comment} />
+          <Comment
+            key={comment}
+            content={comment}
+            onDeleteComment={deleteComment}
+          />
         ))}
       </div>
     </article>
