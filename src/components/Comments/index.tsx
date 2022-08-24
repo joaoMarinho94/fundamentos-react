@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import { ThumbsUp, Trash } from "phosphor-react";
 import { Avatar } from "../Avatar";
 
-interface IProps{
+interface IProps {
   content: string;
   onDeleteComment: (commentToDelete: string) => void;
 }
@@ -18,7 +18,7 @@ export function Comment({ content, onDeleteComment }: IProps) {
   }
 
   function handleLikeComment() {
-    setLikeCount(likeCount + 1);
+    setLikeCount((state) => state + 1);
   }
 
   return (
@@ -44,7 +44,7 @@ export function Comment({ content, onDeleteComment }: IProps) {
         </div>
 
         <footer>
-        <button onClick={handleLikeComment}>
+          <button onClick={handleLikeComment}>
             <ThumbsUp />
             Aplaudir <span>{likeCount}</span>
           </button>
